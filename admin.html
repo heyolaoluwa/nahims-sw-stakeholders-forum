@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — NAHIMS SW</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    body { background:#f0f2f5; }
+    .admin-wrap { display:grid;grid-template-columns:240px 1fr;min-height:100vh; }
+    .admin-sidebar { background:#3b0764;color:#fff;padding:0; }
+   .admin-brand { padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:.75rem;background:#2e0554; }
+   
+    .admin-brand .brand-text { font-size:.88rem;font-weight:700;line-height:1.3; }
+    .admin-brand .brand-text span { display:block;font-size:.72rem;opacity:1;font-weight:400; }
+    .admin-nav { list-style:none;padding:1rem 0;margin:0; }
+    .admin-nav li a { display:flex;align-items:center;gap:.75rem;padding:.75rem 1.5rem;color:rgba(255,255,255,1);text-decoration:none;font-size:.88rem;font-weight:500;transition:.2s;cursor:pointer; }
+  .admin-nav li a:hover,.admin-nav li a.active { color:#fff;background:rgba(255,255,255,.15);border-left:3px solid #f0c040; }
+    .admin-nav li a i { width:18px;text-align:center; }
+    .admin-main { padding:2rem;overflow-y:auto; }
+    .admin-topbar { display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem; }
+    .admin-topbar h1 { font-size:1.4rem;color:var(--navy);margin:0; }
+    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem; }
+    .stat-box { background:#fff;border-radius:10px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden; }
+    .stat-box::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--purple); }
+    .stat-box.gold::before { background:var(--gold); }
+    .stat-box.green::before { background:#10b981; }
+    .stat-box.red::before { background:#ef4444; }
+    .stat-box .s-label { font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500);font-weight:600;margin-bottom:.4rem; }
+    .stat-box .s-value { font-size:1.6rem;font-weight:800;color:var(--navy); }
+    .panel { background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1.5rem; }
+    .panel-header { padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem; }
+    .panel-header h3 { font-size:.95rem;color:var(--navy);margin:0;font-weight:700; }
+    .panel-body { padding:1.5rem;overflow-x:auto; }
+    .search-input { padding:.6rem 1rem;border:1px solid var(--gray-200);border-radius:8px;font-size:.85rem;font-family:inherit;width:220px;outline:none; }
+    .search-input:focus { border-color:var(--purple); }
+    table.data-table { width:100%;border-collapse:collapse;font-size:.82rem; }
+    .data-table th { text-align:left;padding:.65rem 1rem;background:#f8f9fc;color:var(--gray-500);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap; }
+    .data-table td { padding:.75rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--gray-700);vertical-align:middle; }
+    .data-table tr:last-child td { border-bottom:none; }
+    .badge { display:inline-block;padding:.2rem .65rem;border-radius:50px;font-size:.72rem;font-weight:700;text-transform:uppercase; }
+    .badge.active   { background:#d1fae5;color:#065f46; }
+    .badge.expired  { background:#fee2e2;color:#991b1b; }
+    .badge.none,.badge.pending { background:#f3f4f6;color:#6b7280; }
+    .badge.successful { background:#d1fae5;color:#065f46; }
+    .badge.failed   { background:#fee2e2;color:#991b1b; }
+    .badge.monthly  { background:#ede9fe;color:#5b21b6; }
+    .badge.annual   { background:#fef3c7;color:#92400e; }
+    .action-btn { background:none;border:1px solid var(--gray-200);padding:.35rem .65rem;border-radius:6px;cursor:pointer;font-size:.8rem;color:var(--gray-600);transition:.15s;font-family:inherit; }
+    .action-btn:hover { background:var(--gray-100); }
+    .action-btn.danger:hover { background:#fee2e2;border-color:#fca5a5;color:#991b1b; }
+    .section-panel { display:none; }
+    .section-panel.active { display:block; }
+    .export-row { display:flex;gap:.75rem;flex-wrap:wrap; }
+    @media(max-width:768px) {
+      .admin-wrap { grid-template-columns:1fr; }
+      .admin-sidebar { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-wrap">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <img src="myg.jpg" alt="Logo" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" />
+      <div class="brand-text">NAHIMS SW Admin<span>Membership Portal</span></div>
+    </div>
+    <ul class="admin-nav">
+      <li><a onclick="showSection('overview')" class="active" id="nav-overview"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a onclick="showSection('members')"  id="nav-members"><i class="fas fa-users"></i> Members</a></li>
+      <li><a onclick="showSection('payments')" id="nav-payments"><i class="fas fa-money-bill-wave"></i> Payments</a></li>
+      <li><a onclick="showSection('export')"   id="nav-export"><i class="fas fa-download"></i> Export Data</a></li>
+      <li style="margin-top:auto;border-top:1px solid rgba(255,255,255,.1);padding-top:.5rem;">
+        <a onclick="adminLogout()" id="nav-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="sectionTitle">Dashboard Overview</h1>
+      <span id="adminName" style="font-size:.85rem;color:var(--gray-600);"></span>
+    </div>
+
+    <!-- Overview -->
+    <div class="section-panel active" id="section-overview">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="s-label">Total Members</div>
+          <div class="s-value" id="statTotal">—</div>
+        </div>
+        <div class="stat-box green">
+          <div class="s-label">Active Members</div>
+          <div class="s-value" id="statActive">—</div>
+        </div>
+        <div class="stat-box red">
+          <div class="s-label">Inactive Accounts</div>
+          <div class="s-value" id="statInactive">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">Monthly Payments</div>
+          <div class="s-value" id="statMonthly">—</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="s-label">Annual Payments</div>
+          <div class="s-value" id="statAnnual">—</div>
+        </div>
+        <div class="stat-box green">
+          <div class="s-label">Total Revenue</div>
+          <div class="s-value" id="statRevenue">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Members -->
+    <div class="section-panel" id="section-members">
+      <div class="panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-users" style="color:var(--gold);margin-right:.5rem;"></i> All Members</h3>
+          <input type="text" class="search-input" id="memberSearch" placeholder="Search name, email, ID…" oninput="searchMembers(this.value)" />
+        </div>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Member ID</th><th>Full Name</th><th>Email</th><th>State</th>
+                <th>Sub Status</th><th>Sub End</th><th>Account</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="membersBody">
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gray-500);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments -->
+    <div class="section-panel" id="section-payments">
+      <div class="panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-money-bill-wave" style="color:var(--gold);margin-right:.5rem;"></i> Payment History</h3>
+        </div>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Member</th><th>Member ID</th><th>Plan</th>
+                <th>Months</th><th>Amount</th><th>Reference</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsBody">
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gray-500);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div class="section-panel" id="section-export">
+      <div class="panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-download" style="color:var(--gold);margin-right:.5rem;"></i> Export Data</h3>
+        </div>
+        <div class="panel-body">
+          <p style="color:var(--gray-600);margin-bottom:1.5rem;font-size:.9rem;">
+            Download member and payment data in CSV format for use in Excel or Google Sheets.
+          </p>
+          <div class="export-row">
+            <a id="exportMembersBtn" href="#" class="btn btn-navy" onclick="exportMembers(event)">
+              <i class="fas fa-users"></i> Export Members CSV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Edit Member Modal -->
+<div id="editModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:12px;padding:2rem;width:90%;max-width:480px;max-height:80vh;overflow-y:auto;">
+    <h3 style="margin:0 0 1.25rem;color:var(--navy);">Edit Member</h3>
+    <form id="editForm">
+      <input type="hidden" id="editMemberId" />
+      <div class="form-group"><label>Full Name</label><input type="text" id="editFullName" class="search-input" style="width:100%;" /></div>
+      <div class="form-group"><label>Phone</label><input type="text" id="editPhone" class="search-input" style="width:100%;" /></div>
+      <div class="form-group"><label>State</label><input type="text" id="editState" class="search-input" style="width:100%;" /></div>
+      <div class="form-group"><label>Institution</label><input type="text" id="editInstitution" class="search-input" style="width:100%;" /></div>
+      <div class="form-group"><label>Role</label><input type="text" id="editRole" class="search-input" style="width:100%;" /></div>
+      <div style="display:flex;gap:.75rem;margin-top:1.25rem;">
+        <button type="submit" class="btn btn-navy" style="flex:1;">Save Changes</button>
+        <button type="button" onclick="closeModal()" style="flex:1;padding:.75rem;border:1px solid var(--gray-200);border-radius:8px;background:#fff;cursor:pointer;font-family:inherit;">Cancel</button>
+      </div>
+    </form>
+    <div id="editMessage" class="form-message" role="alert"></div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

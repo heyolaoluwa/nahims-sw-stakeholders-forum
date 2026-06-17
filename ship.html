@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership — NAHIMS SW Stakeholders Forum</title>
+  <meta name="description" content="Join NAHIMS SW Stakeholders Forum. Choose your membership plan and pay securely via Flutterwave." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <!-- Flutterwave Inline Checkout SDK -->
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="stake.html" class="nav-logo" aria-label="NAHIMS SW Forum Home">
+        <img src="myg.jpg" alt="NAHIMS SW Logo" class="nav-logo-img" />
+        <div class="nav-logo-text">
+          NAHIMS SOUTHWEST
+          <span>Stakeholders Forum</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="stake.html">Home</a></li>
+        <li><a href="ship.html" class="active">Membership</a></li>
+        <li><a href="gallery.html">Gallery &amp; Blog</a></li>
+      </ul>
+      <a href="ship.html" class="btn btn-primary nav-cta">Join Forum</a>
+      <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="stake.html">Home</a>
+    <a href="ship.html">Membership</a>
+    <a href="gallery.html">Gallery &amp; Blog</a>
+    <a href="ship.html" class="btn btn-primary">Join the Forum</a>
+  </nav>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Page header">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="stake.html">Home</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Membership</span>
+    </nav>
+    <h1>Join NAHIMS SW Stakeholders Forum</h1>
+    <p>Choose your plan, pay securely via Flutterwave popup, then complete your registration</p>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="membership-section" aria-labelledby="membership-heading">
+  <div class="container">
+
+    <!-- ── STEP 1: PLAN SELECTION ── -->
+    <div class="plan-selector reveal" id="planSection">
+      <div class="plan-selector-title">
+        <span class="section-tag">Step 1</span>
+        <h2 class="section-title">Choose Your Membership Plan</h2>
+        <p class="section-sub" style="margin:0 auto;">
+          Enter your email below first, then select a plan and click the pay button.
+          A secure Flutterwave payment popup will open directly on this page.
+          Once payment is confirmed, your registration form will unlock automatically.
+        </p>
+      </div>
+
+      <!-- Email prompt (needed before Flutterwave can open) -->
+      <div style="max-width:420px;margin:0 auto 2rem;text-align:left;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="emailQuick" style="font-size:.84rem;font-weight:600;color:var(--gray-800);display:block;margin-bottom:.45rem;">
+            Your Email Address <span style="color:var(--error);">*</span>
+            <span style="font-weight:400;color:var(--gray-600);font-size:.78rem;"> — required before payment</span>
+          </label>
+          <input type="email" id="emailQuick" placeholder="you@example.com"
+                 autocomplete="email"
+                 style="width:100%;padding:.78rem 1rem;border:2px solid var(--gray-200);border-radius:6px;font-size:.9rem;outline:none;transition:.3s;font-family:'Poppins',sans-serif;"
+                 onfocus="this.style.borderColor='var(--purple)'"
+                 onblur="this.style.borderColor='var(--gray-200)'" />
+        </div>
+      </div>
+
+      <!-- Plan Cards -->
+      <div class="plans-grid">
+
+        <!-- MONTHLY -->
+        <div class="plan-card" id="monthlyCard">
+          <div class="plan-icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
+          <div class="plan-name">Monthly</div>
+          <div class="plan-amount"><sup>₦</sup>600</div>
+          <div class="plan-period">per month</div>
+          <ul class="plan-features" aria-label="Monthly plan features">
+            <li><i class="fas fa-check"></i>Full forum access</li>
+            <li><i class="fas fa-check"></i>Member directory listing</li>
+            <li><i class="fas fa-check"></i>Event invitations</li>
+            <li><i class="fas fa-check"></i>Newsletter &amp; updates</li>
+            <li><i class="fas fa-times"></i>Research collaboration access</li>
+          </ul>
+          <button id="payMonthlyBtn" class="plan-pay-btn"
+                  aria-label="Pay monthly membership fee via Flutterwave">
+            <i class="fas fa-credit-card"></i> Pay ₦600 — Monthly
+          </button>
+        </div>
+
+        <!-- ANNUAL -->
+        <div class="plan-card annual" id="annualCard">
+          <div class="plan-badge">Best Value</div>
+          <div class="plan-icon" aria-hidden="true"><i class="fas fa-calendar-check"></i></div>
+          <div class="plan-name">Annual</div>
+          <div class="plan-amount"><sup>₦</sup>6,000</div>
+          <div class="plan-period">per year</div>
+          <span class="plan-saving">Save ₦1,200 vs monthly</span>
+          <ul class="plan-features" aria-label="Annual plan features">
+            <li><i class="fas fa-check"></i>Full forum access</li>
+            <li><i class="fas fa-check"></i>Member directory listing</li>
+            <li><i class="fas fa-check"></i>Priority event invitations</li>
+            <li><i class="fas fa-check"></i>Newsletter &amp; updates</li>
+            <li><i class="fas fa-check"></i>Research collaboration access</li>
+          </ul>
+          <button id="payAnnualBtn" class="plan-pay-btn"
+                  aria-label="Pay annual membership fee via Flutterwave">
+            <i class="fas fa-star"></i> Pay ₦6,000 — Annual
+          </button>
+        </div>
+
+      </div><!-- /plans-grid -->
+
+      <!-- Payment status indicator -->
+      <div id="paymentConfirmedBar" class="payment-confirmed-bar" role="status" aria-live="polite"></div>
+
+    </div><!-- /plan-selector -->
+
+    <!-- ── STEP 2: REGISTRATION FORM ── -->
+    <div class="membership-grid">
+
+      <!-- Info Panel -->
+      <aside class="membership-info reveal" aria-label="Membership benefits">
+        <h3><i class="fas fa-star" style="color:var(--gold);margin-right:.5rem;"></i>Member Benefits</h3>
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-network-wired"></i></div>
+          <div class="info-text">
+            <strong>Professional Networking</strong>
+            <span>Connect with 100+ professionals across 7 Southwest states</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="info-text">
+            <strong>Training &amp; Workshops</strong>
+            <span>Access exclusive seminars, bootcamps, and CPD events</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-flask"></i></div>
+          <div class="info-text">
+            <strong>Research Collaboration</strong>
+            <span>Partner on impactful projects and joint publications</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+          <div class="info-text">
+            <strong>Official Membership ID</strong>
+            <span>Receive a verifiable NAHIMS SW Forum member certificate &amp; ID</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-bullhorn"></i></div>
+          <div class="info-text">
+            <strong>Advocacy &amp; Representation</strong>
+            <span>Be part of policy advocacy and industry representation</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Registration Form -->
+      <main>
+        <div class="reg-form-wrap reveal reveal-delay-1">
+
+          <h2 id="membership-heading" class="form-section-title">
+            <i class="fas fa-user-edit"></i> Step 2 — Complete Registration
+          </h2>
+          <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:1.75rem;">
+            <i class="fas fa-lock" style="color:var(--gold);"></i>
+            Your registration form will unlock automatically once payment is confirmed above.
+          </p>
+
+          <form id="membershipForm" novalidate aria-label="Membership registration form">
+
+            <!-- Personal Details -->
+            <fieldset style="border:none;padding:0;margin-bottom:.5rem;">
+              <legend style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;display:block;">
+                Personal Details
+              </legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name <span>*</span></label>
+                  <input type="text" id="fullName" name="fullName"
+                         placeholder="e.g. Dr. Amaka Okafor"
+                         required autocomplete="name" />
+                  <span class="field-error" id="fullNameError" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address <span>*</span></label>
+                  <input type="email" id="email" name="email"
+                         placeholder="you@example.com"
+                         required autocomplete="email" />
+                  <span class="field-error" id="emailError" role="alert"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone Number <span>*</span></label>
+                  <input type="tel" id="phone" name="phone"
+                         placeholder="+234 800 000 0000"
+                         required autocomplete="tel" />
+                  <span class="field-error" id="phoneError" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="state">State <span>*</span></label>
+                  <select id="state" name="state" required>
+                    <option value="">— Select State —</option>
+                    <option>Ekiti</option>
+                    <option>Lagos</option>
+                    <option>Ogun</option>
+                    <option>Ondo</option>
+                    <option>Osun</option>
+                    <option>Oyo</option>
+                    <option>Other</option>
+                  </select>
+                  <span class="field-error" id="stateError" role="alert"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Professional Details -->
+            <fieldset style="border:none;padding:0;margin-top:.5rem;">
+              <legend style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;display:block;">
+                Professional Details
+              </legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="institution">Institution / Organisation <span>*</span></label>
+                  <input type="text" id="institution" name="institution"
+                         placeholder="e.g. Lagos University Teaching Hospital"
+                         required />
+                  <span class="field-error" id="institutionError" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="role">Role / Profession <span>*</span></label>
+                  <input type="text" id="role" name="role"
+                         placeholder="e.g. Health Information Manager"
+                         required />
+                  <span class="field-error" id="roleError" role="alert"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="interest">Short Interest Statement <span>*</span></label>
+                <textarea id="interest" name="interest" rows="4"
+                  placeholder="Briefly describe your professional interests and what you hope to contribute to or gain from NAHIMS SW Stakeholders Forum..."
+                  required></textarea>
+                <span class="field-error" id="interestError" role="alert"></span>
+              </div>
+            </fieldset>
+
+            <!-- Submit -->
+            <div class="form-submit-row">
+              <button type="submit" id="submitBtn" class="btn btn-navy" disabled
+                      aria-label="Submit registration (complete payment first)">
+                <i class="fas fa-paper-plane"></i> Submit Registration
+              </button>
+              <span class="form-note">
+                <i class="fas fa-shield-alt" style="color:var(--gold);"></i>
+                Your data is encrypted and securely stored.
+              </span>
+            </div>
+
+            <div id="formMessage" class="form-message" role="alert" aria-live="assertive"></div>
+
+          </form>
+        </div>
+      </main>
+
+    </div><!-- /membership-grid -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:1rem;">
+          <img src="myg.jpg" alt="NAHIMS SW Logo" class="nav-logo-img" />
+          <div class="nav-logo-text">NAHIMS SOUTHWEST<span>Stakeholders Forum</span></div>
+        </div>
+        <p>A premier community of young professional leaders advancing Health Information Management across Southwest Nigeria.</p>
+        <div class="social-links" aria-label="Social media links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="stake.html">Home</a></li>
+          <li><a href="ship.html">Membership</a></li>
+          <li><a href="gallery.html">Gallery &amp; Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Payment Help</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fas fa-envelope"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1678777e7f7b6565616562777d737e797a7273646556717b777f7a3875797b">[email&#160;protected]</a></p>
+        <p><i class="fas fa-phone"></i>+234 706 6650 914</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 NAHIMS SW Stakeholders Forum. All rights reserved.</span>
+      <span>Built with <i class="fas fa-heart" style="color:var(--gold);"></i> for professionals</span>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

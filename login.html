@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — NAHIMS SW Stakeholders Forum</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+
+<nav class="navbar" role="navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="stake.html" class="nav-logo">
+        <img src="myg.jpg" alt="NAHIMS SW Logo" class="nav-logo-img" />
+        <div class="nav-logo-text">NAHIMS SOUTHWEST<span>Stakeholders Forum</span></div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="stake.html">Home</a></li>
+        <li><a href="register.html">Membership</a></li>
+      </ul>
+      <a href="register.html" class="btn btn-primary nav-cta">Register</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Member Login</h1>
+    <p>Access your membership dashboard</p>
+  </div>
+</section>
+
+<section class="membership-section">
+  <div class="container" style="max-width:460px;">
+    <div class="reg-form-wrap" style="margin:0 auto;">
+      <h2 class="form-section-title"><i class="fas fa-sign-in-alt"></i> Login to Your Account</h2>
+
+      <form id="loginForm" novalidate style="margin-top:1.5rem;">
+        <div class="form-group">
+          <label for="email">Email Address <span>*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+          <span class="field-error" id="emailError" role="alert"></span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password <span>*</span></label>
+          <div style="position:relative;">
+            <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" style="padding-right:3rem;" />
+            <button type="button" id="togglePwd" aria-label="Toggle password visibility"
+                    style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-500);font-size:.95rem;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="field-error" id="passwordError" role="alert"></span>
+        </div>
+
+        <div class="form-submit-row" style="margin-top:1.5rem;">
+          <button type="submit" id="loginBtn" class="btn btn-navy" style="width:100%;justify-content:center;">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </div>
+
+        <div id="formMessage" class="form-message" role="alert" aria-live="assertive"></div>
+
+        <p style="text-align:center;margin-top:1.25rem;font-size:.85rem;color:var(--gray-600);">
+          Don't have an account? <a href="register.html" style="color:var(--purple);font-weight:600;">Register here</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2026 NAHIMS SW Stakeholders Forum. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="login.js"></script>
+</body>
+</html>
